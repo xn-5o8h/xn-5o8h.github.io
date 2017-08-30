@@ -62,7 +62,7 @@
 				let s = JSON.stringify(obj, null, "&emsp;").replace(/(?:\r\n|\r|\n)/g, '<br />');
 
 				//<button class="deleteButton" onclick="deleteButton(' + i + ');">X</button><div class="text">
-				list.innerHTML += '<div class="input-color" id="'+ i +'" style="border-top:5px ' + rgb + '; border-style: solid none; border-bottom-style: none;"><div class="color-box" style="background-color:' + rgb +'"></div><div class="text"><details> <summary>' + obj.object + '</summary><div class="textobj">' + s + '</div></div></div>'
+				list.innerHTML += '<div class="input-color" id="'+ i +'" style="border-top:5px ' + rgb + '; border-style: solid none; border-bottom-style: none;"><div class="color-box" style="background-color:' + rgb +'"></div><div class="text"><details> <summary>' + (obj.object || obj.backgroundMat || obj.foregroundMat) + '</summary><div class="textobj">' + s + '</div></div></div>'
 
 			}
 		}
