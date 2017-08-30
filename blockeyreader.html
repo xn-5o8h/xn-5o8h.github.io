@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>blockey reader</title>
+		<style type="text/css">
+			.input-color {
+	    		position: relative;
+				}
+			.input-color .text {
+	    		padding-left: 25%;
+			}
+			.input-color .color-box {
+	    		width: 20%;
+	    		height: 100%;
+	    		display: inline-block;
+	    		background-color: #ccc;
+	    		position: absolute;
+	    		left: 5px;	    		
+	    		top: -2.5px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<input type = "text" id = "input" value = "paste your .blockkey file's content here" onpaste="loadList();loadList();"/>
+		<div id="list">
+		</div>
+	</body>
+</html>
+
+<script>
+	function loadList() {
+		let list = document.getElementById("list");
+		try {
+			let blockey = document.getElementById('input').value;
+			let json = JSON.parse(blockey);
+			list.innerHTML = '';
+			for (let i in json.blockKey) {
+				let lazyObj = json.blockKey[i]
+
+				let rgb = 'rgb(' + lazyObj.value.toString().slice(0, -4) + ')';
+				let revrgb = 'rgb(' + (255 - lazyObj.value[0]) + ',' + (255 - lazyObj.value[1]) + ',' + (255 - lazyObj.value[2]) + ')'
+
+				lazyObj.value = lazyObj.value.toString().replace(/,/g, ', ')
+				let s = JSON.stringify(lazyObj, null, "&emsp;").replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+				list.innerHTML += '<hr><div class="input-color"><div class="text"><details> <summary>' + lazyObj.object + '</summary><p>' + s + '</p> </div><div class="color-box" style="background-color:' + rgb +'"></div></div>'
+
+			}
+		}
+		catch(err) {
+			list.innerHTML = "it borke, chances are it was a JSON parsing error, please try <a href='jsonlint.com'>https://jsonlint.com</a>";
+			console.log("aaAAA", err)
+		} 
+	}
+	loadList()
+</script>
